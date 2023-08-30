@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\StudentManagementSystem.Data\StudentManagementSystem.Data.csproj" />
     <ProjectReference Include="..\StudentManagementSystem.Lib\StudentManagementSystem.Lib.csproj" />
   </ItemGroup>
 

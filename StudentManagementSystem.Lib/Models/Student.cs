@@ -14,7 +14,7 @@ namespace StudentManagementSystem.Lib.Models
 
         public string? Initials { get; set; }
         public string? LastName { get; set; }
-        public string? Gender { get; set; }
+        public Gender? Gender { get; set; }
         public string? ImageFile { get; set; }
         public DateTime? EnrollmentDate { get; set; }
         public IList<Enrollment>? Enrollments { get; set; }
