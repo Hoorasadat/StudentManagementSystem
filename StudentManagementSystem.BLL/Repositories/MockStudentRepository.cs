@@ -17,33 +17,52 @@ namespace StudentManagementSystem.BLL.Repositories
         public MockStudentRepository(MemoryDbContext context) 
         { 
             _context = context;
+            SeedData();
         }
-        public Task<Student> AddStudent(Student student)
+        public async Task<Student> AddStudent(Student student)
         {
-            throw new NotImplementedException();
+            var newStudent = await _context.Students.AddAsync(student);
+            await _context.SaveChangesAsync();
+
+            return newStudent.Entity;
         }
 
-        public Task<Student> DeleteStudent(int id)
+        public async Task<Student> DeleteStudent(int id)
         {
-            throw new NotImplementedException();
+            Student student = await _context.Students.FirstOrDefaultAsync(x => x.Id == id);
+            _context.Students.Remove(student);
+            await _context.SaveChangesAsync();
+
+            return student;
         }
 
-        public Task<IList<Student>> GetAllStudents()
+        public async Task<IList<Student>> GetAllStudents()
         {
-            throw new NotImplementedException();
+            return await _context.Students.ToListAsync();
         }
 
-        public Task<Student> GetStudent(int id)
+        public async Task<Student> GetStudent(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Students.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public Task<Student> UpdateStudent(Student student)
+        public async Task<Student> UpdateStudent(Student student)
         {
-            throw new NotImplementedException();
+            Student studentToUpdate = await _context.Students.FirstOrDefaultAsync(x => x.Id == student.Id);
+            
+            studentToUpdate.FirstName = student.FirstName;
+            studentToUpdate.Initials = student.Initials;
+            studentToUpdate.LastName = student.LastName;
+            studentToUpdate.Gender = student.Gender;
+            studentToUpdate.ImageFile = student.ImageFile;
+            studentToUpdate.EnrollmentDate = student.EnrollmentDate;
+
+            _context.Students.Update(studentToUpdate);
+            _context.SaveChanges();
+            return studentToUpdate;
         }
 
-        private async Task SeedData()
+        private void SeedData()
         {
             if (!_context.Students.Any())
             {
@@ -90,7 +109,7 @@ namespace StudentManagementSystem.BLL.Repositories
                     EnrollmentDate = new DateTime(2003, 10, 11)
                 };
 
-                await _context.Students.AddRangeAsync(s1, s2, s3, s4);
+                _context.Students.AddRange(s1, s2, s3, s4);
             }
         }
     }
