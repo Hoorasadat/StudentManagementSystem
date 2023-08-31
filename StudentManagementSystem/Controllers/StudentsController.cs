@@ -4,6 +4,7 @@ using StudentManagementSystem.BLL.Interfaces;
 using StudentManagementSystem.BLL.Repositories;
 using StudentManagementSystem.Data.Data;
 using StudentManagementSystem.Lib.Models;
+using StudentManagementSystem.WEB.ViewModels;
 
 namespace StudentManagementSystem.Controllers
 {
@@ -17,10 +18,18 @@ namespace StudentManagementSystem.Controllers
         }
 
         // GET: StudentsController
-        public async Task<JsonResult> Index()
+        //public async Task<JsonResult> Index()
+        //{
+        //    IList<Student> students = await _studentRepository.GetAllStudents();
+        //    return Json(students);
+
+        //    //return View(students);
+        //}
+
+        public async Task<ActionResult> Index()
         {
             IList<Student> students = await _studentRepository.GetAllStudents();
-            return Json(students);
+            return View(students);
 
             //return View(students);
         }
@@ -37,12 +46,19 @@ namespace StudentManagementSystem.Controllers
 
             //ViewData["PageTitle"] = "Student Detailis";
             //ViewData["Student"] = student;
+            //return View();
 
             //ViewBag.PageTitle = "Student Detailis";
             //ViewBag.Student = student;
-            //return View();
+            //return View(student);
 
-            return View(student);
+            StudentViewModel stuentVM = new StudentViewModel()
+            {
+                Student = student,
+                Title = "Student Details"
+            };
+
+            return View(stuentVM);
         }
 
         // GET: StudentsController/Create
