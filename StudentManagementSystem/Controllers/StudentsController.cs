@@ -38,10 +38,11 @@ namespace StudentManagementSystem.Controllers
             //ViewData["PageTitle"] = "Student Detailis";
             //ViewData["Student"] = student;
 
-            ViewBag.PageTitle = "Student Detailis";
-            ViewBag.Student = student;
+            //ViewBag.PageTitle = "Student Detailis";
+            //ViewBag.Student = student;
+            //return View();
 
-            return View();
+            return View(student);
         }
 
         // GET: StudentsController/Create

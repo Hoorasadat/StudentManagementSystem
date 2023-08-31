@@ -1,7 +1,8 @@
-﻿
+﻿@model StudentManagementSystem.Lib.Models.Student
 @{
-    // ViewData["Title"] = "Student Details";
+    ViewData["Title"] = "Student Details";
     // var student = ViewData["Student"] as StudentManagementSystem.Lib.Models.Student;
+
 }
 
 <h1>@ViewData["PageTitle"]</h1>
@@ -10,7 +11,17 @@
         <title></title>
     </head>
     <body>
+        @* <div>
+            First Name: @student.FirstName;
+        </div>
         <div>
+            Initials:@student.Initials;
+        </div>
+        <div>
+            Last Name: @student.LastName;
+        </div> *@
+
+        @* <div>
             First Name: @ViewBag.Student.FirstName;
         </div>
         <div>
@@ -18,6 +29,16 @@
         </div>
         <div>
             Last Name: @ViewBag.Student.LastName;
+        </div> *@
+
+        <div>
+            First Name: @Model.FirstName;
+        </div>
+        <div>
+            Initials: @Model.Initials;
+        </div>
+        <div>
+            Last Name: @Model.LastName;
         </div>
     </body>
 </html>
