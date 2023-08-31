@@ -14,6 +14,7 @@ namespace StudentManagementSystem.BLL.Repositories
     public class MockStudentRepository : IStudentRepository
     {
         private readonly MemoryDbContext _context;
+
         public MockStudentRepository(MemoryDbContext context) 
         { 
             _context = context;
@@ -110,6 +111,7 @@ namespace StudentManagementSystem.BLL.Repositories
                 };
 
                 _context.Students.AddRange(s1, s2, s3, s4);
+                _context.SaveChanges();
             }
         }
     }

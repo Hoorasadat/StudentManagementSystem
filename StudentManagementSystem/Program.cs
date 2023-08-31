@@ -1,3 +1,5 @@
+using StudentManagementSystem.BLL.Interfaces;
+using StudentManagementSystem.BLL.Repositories;
 using StudentManagementSystem.Data.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<MemoryDbContext>();
+builder.Services.AddScoped<IStudentRepository, MockStudentRepository>();
 
 var app = builder.Build();
 

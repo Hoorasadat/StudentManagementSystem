@@ -1,4 +1,6 @@
-﻿namespace StudentManagementSystem
+﻿using StudentManagementSystem.Lib.Models;
+
+namespace StudentManagementSystem
 {
     public class Enrollment
     {
