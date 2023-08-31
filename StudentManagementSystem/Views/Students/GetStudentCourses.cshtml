@@ -1,0 +1,9 @@
+﻿@model IList<string>
+
+@{
+    ViewData["Title"] = "Course List";
+}
+
+<div>
+    @string.Join(", ", Model);
+</div>

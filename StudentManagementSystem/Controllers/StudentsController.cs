@@ -18,6 +18,8 @@ namespace StudentManagementSystem.Controllers
         }
 
         // GET: StudentsController
+        [Route("/All")]
+        [Route("students/getallstudents")]
         //public async Task<JsonResult> Index()
         //{
         //    IList<Student> students = await _studentRepository.GetAllStudents();
@@ -35,6 +37,7 @@ namespace StudentManagementSystem.Controllers
         }
 
         // GET: StudentsController/Details/5
+        
         public async Task<ActionResult> Details(int id)
         {
             //MemoryDbContext context = new MemoryDbContext();
@@ -59,6 +62,14 @@ namespace StudentManagementSystem.Controllers
             };
 
             return View(stuentVM);
+        }
+
+        [Route("getstudent/courses/{id}")]
+        //[Route("getstudent/{id}/courses/")]
+        public async Task<ViewResult> GetStudentCourses(int id)
+        {
+            IList<string> courseList = await _studentRepository.GetStudentCourses(id);
+            return View(courseList);
         }
 
         // GET: StudentsController/Create

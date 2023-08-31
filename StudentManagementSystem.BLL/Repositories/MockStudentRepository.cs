@@ -47,6 +47,30 @@ namespace StudentManagementSystem.BLL.Repositories
             return await _context.Students.FirstOrDefaultAsync(x => x.Id == id);
         }
 
+        public async Task<IList<string>> GetStudentCourses(int id)
+        {
+            IList<string> CourseList = new List<string>();
+            
+            if (id == 1)
+            {
+                CourseList = new List<string>() { "ASP.NET Core", "SQL Server" };
+            } 
+            else if (id == 2)
+            {
+                CourseList = new List<string>() { "ASP.NET Core", "C# .NET", "SQL Server" };
+            }
+            else if (id == 3)
+            {
+                CourseList = new List<string>() { "ASP.NET Core", "C# .NET", "Entity Framework core" };
+            }
+            else
+            {
+                CourseList = new List<string>() { "BootStrap", "JQuery", "Angular JS" };
+            }
+
+            return CourseList;
+        }
+
         public async Task<Student> UpdateStudent(Student student)
         {
             Student studentToUpdate = await _context.Students.FirstOrDefaultAsync(x => x.Id == student.Id);
