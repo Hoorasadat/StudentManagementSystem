@@ -15,10 +15,14 @@ namespace StudentManagementSystem.Controllers
         {
             _studentRepository = studentRepository;
         }
+
         // GET: StudentsController
-        public ActionResult Index()
+        public async Task<JsonResult> Index()
         {
-            return View();
+            IList<Student> students = await _studentRepository.GetAllStudents();
+            return Json(students);
+
+            //return View(students);
         }
 
         // GET: StudentsController/Details/5
@@ -29,7 +33,15 @@ namespace StudentManagementSystem.Controllers
             
             Student student = await _studentRepository.GetStudent(id);
 
-            return Json(student);
+            //return Json(student);
+
+            //ViewData["PageTitle"] = "Student Detailis";
+            //ViewData["Student"] = student;
+
+            ViewBag.PageTitle = "Student Detailis";
+            ViewBag.Student = student;
+
+            return View();
         }
 
         // GET: StudentsController/Create

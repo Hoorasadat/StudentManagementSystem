@@ -1,0 +1,23 @@
+﻿
+@{
+    // ViewData["Title"] = "Student Details";
+    // var student = ViewData["Student"] as StudentManagementSystem.Lib.Models.Student;
+}
+
+<h1>@ViewData["PageTitle"]</h1>
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <div>
+            First Name: @ViewBag.Student.FirstName;
+        </div>
+        <div>
+            Initials: @ViewBag.Student.Initials;
+        </div>
+        <div>
+            Last Name: @ViewBag.Student.LastName;
+        </div>
+    </body>
+</html>
