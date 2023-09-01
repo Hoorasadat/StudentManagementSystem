@@ -24,7 +24,7 @@
             var photoPath = "/images/" + (student.ImageFile ?? "no_userimage.png");
             <tr>
                 <td>@student.Id</td>
-                <td><img src="@photoPath" height="60" width="60" class="img-thumbnail"/></td>
+                <td><img asp-append-version="true" src="@photoPath" height="60" width="60" class="img-thumbnail"/></td>
                 <td>@student.FirstName</td>
                 <td>@student.Initials</td>
                 <td>@student.LastName</td>

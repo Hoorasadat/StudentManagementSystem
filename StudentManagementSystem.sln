@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34018.315
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentManagementSystem", "StudentManagementSystem\StudentManagementSystem.csproj", "{A7FB96E9-8D08-4EE9-BBB9-7998C40CDDF1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentManagementSystem.WEB", "StudentManagementSystem\StudentManagementSystem.WEB.csproj", "{A7FB96E9-8D08-4EE9-BBB9-7998C40CDDF1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentManagementSystem.Lib", "StudentManagementSystem.Lib\StudentManagementSystem.Lib.csproj", "{EF8D3818-FE21-413F-9B14-162721CC8CC2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentManagementSystem.Lib", "StudentManagementSystem.Lib\StudentManagementSystem.Lib.csproj", "{EF8D3818-FE21-413F-9B14-162721CC8CC2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentManagementSystem.Data", "StudentManagementSystem.Data\StudentManagementSystem.Data.csproj", "{EB1CA9C9-E691-4D46-AB19-977B184CED21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentManagementSystem.Data", "StudentManagementSystem.Data\StudentManagementSystem.Data.csproj", "{EB1CA9C9-E691-4D46-AB19-977B184CED21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentManagementSystem.BLL", "StudentManagementSystem.BLL\StudentManagementSystem.BLL.csproj", "{3EBE2F73-9449-4258-89A3-A067B665EDBF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentManagementSystem.BLL", "StudentManagementSystem.BLL\StudentManagementSystem.BLL.csproj", "{3EBE2F73-9449-4258-89A3-A067B665EDBF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

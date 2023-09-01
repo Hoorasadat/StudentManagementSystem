@@ -4,9 +4,10 @@ using StudentManagementSystem.BLL.Interfaces;
 using StudentManagementSystem.BLL.Repositories;
 using StudentManagementSystem.Data.Data;
 using StudentManagementSystem.Lib.Models;
+//using StudentManagementSystem.ViewModels;
 using StudentManagementSystem.WEB.ViewModels;
 
-namespace StudentManagementSystem.Controllers
+namespace StudentManagementSystem.WEB.Controllers
 {
     public class StudentsController : Controller
     {
@@ -64,6 +65,7 @@ namespace StudentManagementSystem.Controllers
             return View(stuentVM);
         }
 
+
         [Route("getstudent/courses/{id}")]
         //[Route("getstudent/{id}/courses/")]
         public async Task<ViewResult> GetStudentCourses(int id)
@@ -72,16 +74,19 @@ namespace StudentManagementSystem.Controllers
             return View(courseList);
         }
 
+
         // GET: StudentsController/Create
+        [HttpGet]
         public ActionResult Create()
         {
             return View();
         }
 
+
         // POST: StudentsController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(CreateStudentViewModel studentVM)
         {
             try
             {
@@ -93,11 +98,13 @@ namespace StudentManagementSystem.Controllers
             }
         }
 
+
         // GET: StudentsController/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
+
 
         // POST: StudentsController/Edit/5
         [HttpPost]
@@ -114,11 +121,13 @@ namespace StudentManagementSystem.Controllers
             }
         }
 
+
         // GET: StudentsController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
+
 
         // POST: StudentsController/Delete/5
         [HttpPost]
