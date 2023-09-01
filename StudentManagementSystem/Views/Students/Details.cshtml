@@ -3,7 +3,9 @@
 @* @model StudentManagementSystem.Lib.Models.Student *@
 @{
     ViewData["Title"] = "Student Details";
+    // var student = ViewData["Student"];
     // var student = ViewData["Student"] as StudentManagementSystem.Lib.Models.Student;
+    var photoPath = "/images/" + (Model.Student.ImageFile ?? "no_userimage.png");
 }
 
 <h1>@Model.Title</h1>
@@ -38,7 +40,7 @@
     Last Name: @Model.LastName;
 </div> *@
 
-<div>
+<@* div>
     First Name: @Model.Student.FirstName;
 </div>
 <div>
@@ -46,9 +48,63 @@
 </div>
 <div>
     Last Name: @Model.Student.LastName;
+</div> *@
+
+<h1 class="text-center">@Model.Title</h1>
+<div class="d-flex justify-content-center">
+    <div class="col-md-7">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="text-center bg-primary text-white">@($"{Model.Student.FirstName} {Model.Student.LastName}")</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <img src="@photoPath" height="200" width="200"/>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>ID: @Model.Student.Id</h6>
+                        <h6>Gender: @Model.Student.Gender</h6>
+                        <h6>Enrollment Date: @Model.Student.EnrollmentDate</h6>
+                        @if (Model.Student.Enrollments != null)
+                        {
+                            <table class="table table-borderless table-responsive">
+                                <thead  class="bg-primary text-white">
+                                    <tr>
+                                        <th> Course </th>
+                                        <th> Grade </th>
+                                        <th> Instructor </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var enrollment in Model.Student.Enrollments)
+                                    {
+                                        <tr>
+                                            <td>@enrollment.Course</td>
+                                            <td>@enrollment.Grade</td>
+                                            <td>@enrollment.Course.Instructor</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                        else
+                        {
+                            <p>Student isn't enrolled in the course</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-center">
+            <a asp-controller="Students" asp-action="index" class="btn btn-secondary col-md-2">Cancel</a>
+            <a href="#" class="btn btn-primary col-md-2">View</a>
+            <a href="#" class="btn btn-danger col-md-2">Delete</a>
+        </div>
+    </div>
 </div>
 
-@section Scripts
-{
+
+@section Scripts{
     <script src="~/js/customscripts.js"></script>
 }

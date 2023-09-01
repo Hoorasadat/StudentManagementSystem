@@ -95,9 +95,10 @@ namespace StudentManagementSystem.BLL.Repositories
                 {
                     Id = 1,
                     FirstName = "Andy",
+                    Initials = " A",
                     LastName = " Young",
                     Gender = Gender.Male,
-                    ImageFile = "AndyYoung.jpg",
+                    ImageFile = "AndyAYoung.jpg",
                     EnrollmentDate = new DateTime(1998, 03, 24)
                 };
 
@@ -130,7 +131,7 @@ namespace StudentManagementSystem.BLL.Repositories
                     Initials = " H",
                     LastName = " Bredd",
                     Gender = Gender.Male,
-                    ImageFile = "MarcBredd.jpg",
+                    ImageFile = "MarcHBredd.jpg",
                     EnrollmentDate = new DateTime(2003, 10, 11)
                 };
 

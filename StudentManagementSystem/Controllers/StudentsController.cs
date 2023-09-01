@@ -18,8 +18,8 @@ namespace StudentManagementSystem.Controllers
         }
 
         // GET: StudentsController
-        [Route("/All")]
-        [Route("students/getallstudents")]
+        //[Route("/All")]
+        //[Route("students/getallstudents")]
         //public async Task<JsonResult> Index()
         //{
         //    IList<Student> students = await _studentRepository.GetAllStudents();

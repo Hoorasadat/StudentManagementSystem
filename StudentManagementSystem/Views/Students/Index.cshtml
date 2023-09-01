@@ -2,31 +2,46 @@
 
 @{
     ViewData["Title"] = "List of Students";
-
 }
 
-<table>
-    <thead>
+<table class="table table-borderless table-striped table-responsive">
+    <thead class="bg-primary text-white">
         <tr>
+            <th> ID </th>
+            <th> Photo </th>
             <th> First Name </th>
             <th> Initials </th>
             <th> Last Name </th>
             <th> Gender </th>
-            <th> Image </th>
             <th> Enrollment Date </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach(var s in Model)
+        @foreach(var student in Model)
         {
+            //image for student, ?? Null-coalescing operator. 
+            var photoPath = "/images/" + (student.ImageFile ?? "no_userimage.png");
             <tr>
-                <td>@s.FirstName</td>
-                <td>@s.Initials</td>
-                <td>@s.LastName</td>
-                <td>@s.Gender</td>
-                <td>@s.EnrollmentDate</td>
+                <td>@student.Id</td>
+                <td><img src="@photoPath" height="60" width="60" class="img-thumbnail"/></td>
+                <td>@student.FirstName</td>
+                <td>@student.Initials</td>
+                <td>@student.LastName</td>
+                <td>@student.Gender</td>
+                <td>@student.EnrollmentDate?.ToString("yyyy/MM/dd")</td>
+                <td>
+                    @* <a href="/students/details/@student.Id">View</a> *@
+                    <a asp-controller="Students" asp-action="Details" asp-route-id="@student.Id">View</a>
+                    <a href="">Edit</a>
+                    <a href="">Delete</a>
+                </td>
             </tr>
         }
     </tbody>
-
 </table>
+
+@section Scripts
+{
+    <script src="~/js/customscripts.js"></script>
+}

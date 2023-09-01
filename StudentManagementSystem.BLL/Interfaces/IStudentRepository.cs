@@ -13,9 +13,7 @@ namespace StudentManagementSystem.BLL.Interfaces
         Task<Student> GetStudent(int id);
         Task<Student> AddStudent(Student student);
         Task<Student> UpdateStudent(Student student);
-
-        Task<IList<string>> GetStudentCourses(int id);
         Task<Student> DeleteStudent(int id);
-
+        Task<IList<string>> GetStudentCourses(int id);
     }
 }
