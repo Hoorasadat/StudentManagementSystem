@@ -12,10 +12,13 @@ namespace StudentManagementSystem.WEB.Controllers
     public class StudentsController : Controller
     {
         private readonly IStudentRepository _studentRepository;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public StudentsController(IStudentRepository studentRepository)
+
+        public StudentsController(IStudentRepository studentRepository, IWebHostEnvironment webHostEnvironment)
         {
             _studentRepository = studentRepository;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         // GET: StudentsController
@@ -86,11 +89,36 @@ namespace StudentManagementSystem.WEB.Controllers
         // POST: StudentsController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(CreateStudentViewModel studentVM)
+        public async Task<ActionResult> Create(CreateStudentViewModel studentVM)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                if (!ModelState.IsValid)
+                {
+                    return View();
+                }
+                //if (studentVM.Photo is not null)
+                string uniqueFileName = string.Empty;
+                if (studentVM.Photo != null)
+                {
+                    string imageFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images");
+                    uniqueFileName = $"{Guid.NewGuid().ToString()}_{studentVM.Photo.FileName}";
+                    string filePath = Path.Combine(imageFolder, uniqueFileName);
+                    studentVM.Photo.CopyTo(new FileStream(filePath, FileMode.Create));
+                }
+                 
+                Student student = new Student();
+                student.FirstName = studentVM.FirstName;
+                student.Initials = studentVM.Initials;
+                student.LastName = studentVM.LastName;
+                student.Gender = studentVM.Gender;
+                student.ImageFile = uniqueFileName;
+                student.EnrollmentDate = studentVM.EnrollmentDate;
+
+                Student newStudent = await _studentRepository.AddStudent(student);
+
+                return RedirectToAction("Details", "Students", new { id = newStudent.Id });
+                
             }
             catch
             {
