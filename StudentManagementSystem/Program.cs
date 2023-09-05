@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using StudentManagementSystem.BLL.Interfaces;
 using StudentManagementSystem.BLL.Repositories;
 using StudentManagementSystem.Data.Data;
@@ -9,7 +10,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<MemoryDbContext>();
 
-//builder.Services.AddDbContextPool<>();
+builder.Services.AddDbContextPool<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<IStudentRepository, MockStudentRepository>();
 
