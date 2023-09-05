@@ -6,6 +6,6 @@
         public string? Title { get; set; }
         public int Credits { get; set; }
         public string? Instructor { get; set; }
-        public IList<Enrollment> Enrollments { get; set; }
+        public IList<Enrollment>? Enrollments { get; set; }
     }
 }

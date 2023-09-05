@@ -32,6 +32,7 @@ namespace StudentManagementSystem.WEB.Controllers
         //    //return View(students);
         //}
 
+
         public async Task<ActionResult> Index()
         {
             IList<Student> students = await _studentRepository.GetAllStudents();
@@ -40,8 +41,8 @@ namespace StudentManagementSystem.WEB.Controllers
             //return View(students);
         }
 
+
         // GET: StudentsController/Details/5
-        
         public async Task<ActionResult> Details(int id)
         {
             //MemoryDbContext context = new MemoryDbContext();

@@ -20,6 +20,7 @@ namespace StudentManagementSystem.BLL.Repositories
             _context = context;
             SeedData();
         }
+        
         public async Task<Student> AddStudent(Student student)
         {
             var newStudent = await _context.Students.AddAsync(student);
