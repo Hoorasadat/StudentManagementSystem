@@ -8,6 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<MemoryDbContext>();
+
+//builder.Services.AddDbContextPool<>();
+
 builder.Services.AddScoped<IStudentRepository, MockStudentRepository>();
 
 var app = builder.Build();

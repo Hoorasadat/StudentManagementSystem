@@ -98,16 +98,14 @@ namespace StudentManagementSystem.WEB.Controllers
                 {
                     return View();
                 }
-                //if (studentVM.Photo is not null)
                 string uniqueFileName = string.Empty;
+
+                //if (studentVM.Photo is not null)
                 if (studentVM.Photo != null)
                 {
-                    string imageFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images");
-                    uniqueFileName = $"{Guid.NewGuid().ToString()}_{studentVM.Photo.FileName}";
-                    string filePath = Path.Combine(imageFolder, uniqueFileName);
-                    studentVM.Photo.CopyTo(new FileStream(filePath, FileMode.Create));
+                    uniqueFileName = ProcessUploadedFile(studentVM);
                 }
-                 
+
                 Student student = new Student();
                 student.FirstName = studentVM.FirstName;
                 student.Initials = studentVM.Initials;
@@ -129,20 +127,69 @@ namespace StudentManagementSystem.WEB.Controllers
 
 
         // GET: StudentsController/Edit/5
-        public ActionResult Edit(int id)
+        [HttpGet]
+        public async Task<ActionResult> Edit(int id)
         {
-            return View();
+            Student student = await _studentRepository.GetStudent(id);
+
+            EditStudentViewModel studentVM = new EditStudentViewModel()
+            {
+                Id = student.Id,
+                FirstName = student.FirstName,
+                Initials = student.Initials,
+                LastName = student.LastName,
+                EnrollmentDate = student.EnrollmentDate,
+                Gender = student.Gender,
+                ExistingPhoto = student.ImageFile
+
+            };
+            return View(studentVM);
         }
 
 
         // POST: StudentsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(EditStudentViewModel studentVM)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                if (!ModelState.IsValid)
+                {
+                    return View();
+                }
+
+                Student student = new Student()
+                {
+                    Id = studentVM.Id,
+                    FirstName = studentVM.FirstName,
+                    Initials = studentVM.Initials,
+                    LastName = studentVM.LastName,
+                    Gender = studentVM.Gender,
+                    EnrollmentDate = studentVM.EnrollmentDate
+                };
+
+                string uniqueFileName = string.Empty;
+
+                if (studentVM.Photo != null)
+                {
+                    if (studentVM.ExistingPhoto != null)
+                    {
+                        string existingPhotoPath = Path.Combine(_webHostEnvironment.WebRootPath, "images", studentVM.ExistingPhoto);
+
+                        System.IO.File.Delete(existingPhotoPath);
+                    }
+
+                    student.ImageFile = ProcessUploadedFile(studentVM);
+                }
+                else
+                {
+                    student.ImageFile = studentVM.ExistingPhoto;
+                }
+
+                await _studentRepository.UpdateStudent(student);
+
+                return RedirectToAction("Index", "Students");
             }
             catch
             {
@@ -161,16 +208,28 @@ namespace StudentManagementSystem.WEB.Controllers
         // POST: StudentsController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> Delete(int id, Student student)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                await _studentRepository.DeleteStudent(id);
+                return RedirectToAction("Index", "Students");
             }
             catch
             {
                 return View();
             }
+        }
+
+
+        private string ProcessUploadedFile(CreateStudentViewModel studentVM)
+        {
+            string uniqueFileName;
+            string imageFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images");
+            uniqueFileName = $"{Guid.NewGuid().ToString()}_{studentVM.Photo.FileName}";
+            string filePath = Path.Combine(imageFolder, uniqueFileName);
+            studentVM.Photo.CopyTo(new FileStream(filePath, FileMode.Create));
+            return uniqueFileName;
         }
     }
 }
