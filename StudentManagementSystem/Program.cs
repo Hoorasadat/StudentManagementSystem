@@ -8,12 +8,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<MemoryDbContext>();
-
+//builder.Services.AddDbContext<MemoryDbContext>();
+//builder.Services.AddScoped<IStudentRepository, MockStudentRepository>();
 
 builder.Services.AddDbContextPool<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-//builder.Services.AddScoped<IStudentRepository, MockStudentRepository>();
 
 builder.Services.AddScoped<IStudentRepository, SQLStudentRepository>();
 builder.Services.AddScoped<IStudentRepository, SQLStudentRepository>();
