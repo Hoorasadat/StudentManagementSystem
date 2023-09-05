@@ -12,7 +12,7 @@ builder.Services.AddDbContext<MemoryDbContext>();
 
 builder.Services.AddDbContextPool<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddScoped<IStudentRepository, MockStudentRepository>();
+builder.Services.AddScoped<IStudentRepository, SQLStudentRepository>();
 
 var app = builder.Build();
 

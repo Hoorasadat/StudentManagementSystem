@@ -10,8 +10,8 @@ namespace StudentManagementSystem.BLL.Interfaces
     {
         Task<IList<Course>> GetAllCourses();
         Task<Course> GetCourse(int id);
-        Task<Course> AddCourse(Course Course);
-        Task<Course> UpdateCourse(Course Course);
+        Task<Course> AddCourse(Course course);
+        Task<Course> UpdateCourse(Course updatedCourse);
         Task<Course> DeleteCourse(int id);
     }
 }
