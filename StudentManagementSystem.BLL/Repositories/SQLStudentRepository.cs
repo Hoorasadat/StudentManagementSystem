@@ -44,7 +44,7 @@ namespace StudentManagementSystem.BLL.Repositories
 
         public async Task<Student> GetStudent(int id)
         {
-            return await _context.Students.FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Students.Include(s => s.Enrollments).ThenInclude(e => e.Course).FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<IList<string>> GetStudentCourses(int id)

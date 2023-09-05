@@ -29,7 +29,7 @@ namespace StudentManagementSystem.BLL.Repositories
         {
             Course course = await _context.Courses.FirstOrDefaultAsync(c => c.Id == id);
 
-            if (course != null)
+            if (course == null)
             {
                 return null;
             }
@@ -47,7 +47,7 @@ namespace StudentManagementSystem.BLL.Repositories
 
         public Task<Course> GetCourse(int id)
         {
-            return _context.Courses.Include(c => c.Enrollments).ThenInclude(e => e.Student).FirstOrDefaultAsync(x => x.Id == id);
+            return _context.Courses.Include(c => c.Enrollments).ThenInclude(e => e.Student).FirstOrDefaultAsync(c => c.Id == id);
         }
 
         public async Task<Course> UpdateCourse(Course updatedCourse)

@@ -69,7 +69,7 @@
                         @if (Model.Student.Enrollments != null)
                         {
                             <table class="table table-borderless table-responsive">
-                                <thead  class="bg-primary text-white">
+                                <thead>
                                     <tr>
                                         <th> Course </th>
                                         <th> Grade </th>
@@ -80,7 +80,7 @@
                                     @foreach (var enrollment in Model.Student.Enrollments)
                                     {
                                         <tr>
-                                            <td>@enrollment.Course</td>
+                                            <td>@enrollment.Course.Title</td>
                                             <td>@enrollment.Grade</td>
                                             <td>@enrollment.Course.Instructor</td>
                                         </tr>
