@@ -1,0 +1,32 @@
+﻿@model IList<Course>
+
+@{
+    ViewData["Title"] = "Course List";
+}
+
+<table class="table table-responsive table-borderless table-striped">
+
+    <thead class="bg-primary text-white">
+        <tr>
+            <th>Title</th>
+            <th>Credit</th>
+            <th>Instructor</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var course in Model)
+        {
+            <tr>
+                <td>@course.Title</td>
+                <td>@course.Credits</td>
+                <td>@course.Instructor</td>
+                <td>
+                    <a asp-controller="Courses" asp-actioon="Details" asp-route-id="@course.Id">View</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
