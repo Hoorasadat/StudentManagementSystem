@@ -11,7 +11,7 @@
     <div class="row mb-3 mt-3">
         <label asp-for="CourseID" class="col-form-label col-md-2"></label>
         <div class="col-md-6">
-            <select asp-for="CourseID" class="form-control" asp-items="@ViewBag.Courses">
+            <select asp-for="CourseID" class="form-control form-select" asp-items="@ViewBag.Courses">
                 <option value="">Select the Course</option>
             </select>
             <span asp-validation-for="CourseID" class="text-danger"></span>
@@ -21,7 +21,7 @@
     <div class="row mb-3 mt-3">
         <label asp-for="StudentID" class="col-form-label col-md-2"></label>
         <div class="col-md-6">
-            <select asp-for="StudentID" class="form-control" asp-items="@ViewBag.Students">
+            <select asp-for="StudentID" class="form-control form-select" asp-items="@ViewBag.Students">
                 <option value="">Select the Student</option>
             </select>
             <span asp-validation-for="StudentID" class="text-danger"></span>
@@ -31,8 +31,8 @@
     <div class="row mb-3 mt-3">
         <label asp-for="Grade" class="col-form-label col-md-2"></label>
         <div class="col-md-6">
-            <select asp-for="Grade" class="form-control" asp-items="@Html.GetEnumSelectList<Grade>()">
-                <option value=""></option>
+            <select asp-for="Grade" class="form-control form-select" asp-items="@Html.GetEnumSelectList<Grade>()">
+                <option value="">Select a Grade</option>
             </select>
         </div>
     </div>
@@ -43,3 +43,9 @@
     </div>
 
 </form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

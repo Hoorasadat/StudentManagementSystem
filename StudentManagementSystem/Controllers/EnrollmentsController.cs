@@ -90,11 +90,25 @@ namespace StudentManagementSystem.WEB.Controllers
         // POST: EnrollmentController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create(CreateEnrollmentViewModel createEnrollmentVM)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                if(!ModelState.IsValid)
+                {
+                    return View();
+                }
+
+                Enrollment enrollment = new Enrollment()
+                {
+                    CourseID = createEnrollmentVM.CourseID.Value,
+                    StudentID = createEnrollmentVM.StudentID.Value,
+                    Grade = createEnrollmentVM.Grade
+                };
+
+                await _enrollmentRepository.AddEnrollment(enrollment);
+
+                return RedirectToAction("Index", "Enrollments");
             }
             catch
             {
