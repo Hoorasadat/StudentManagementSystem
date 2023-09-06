@@ -1,0 +1,7 @@
+﻿@model Enrollment
+
+<td>
+    @(Model.Student == null
+        ? "No student enrolled!" : $"{Model.Student.FirstName} {Model.Student.LastName}")
+</td>
+<td>@Model.Grade</td>

@@ -1,4 +1,5 @@
 ﻿using StudentManagementSystem;
+using StudentManagementSystem.Lib.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,5 +15,6 @@ namespace EnrollmentManagementSystem.BLL.Interfaces
         Task<Enrollment> AddEnrollment(Enrollment newEnrollment);
         Task<Enrollment> UpdateEnrollment(Enrollment updatedEnrollment);
         Task<Enrollment> DeleteEnrollment(int id);
+        Task<IList<CourseEnrollmentCount>> CourseEnrollmentCount();
     }
 }

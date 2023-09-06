@@ -1,6 +1,7 @@
 ﻿using EnrollmentManagementSystem.BLL.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using StudentManagementSystem.Data.Data;
+using StudentManagementSystem.Lib.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,6 +43,14 @@ namespace StudentManagementSystem.BLL.Repositories
             return enrollment;
         }
 
+        public async Task<IList<CourseEnrollmentCount>> CourseEnrollmentCount()
+        {
+            return await _context.Enrollments.GroupBy(e => e.Course.Title).Select(c => new CourseEnrollmentCount()
+            {
+                CourseTitle = c.Key,
+                NumberOfStudents = c.Count()
+            }).ToListAsync();
+        }
 
         public async Task<IList<Enrollment>> GetAllEnrollments()
         {

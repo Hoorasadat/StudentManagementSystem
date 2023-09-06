@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.10">
@@ -19,6 +20,10 @@
     <ProjectReference Include="..\StudentManagementSystem.BLL\StudentManagementSystem.BLL.csproj" />
     <ProjectReference Include="..\StudentManagementSystem.Data\StudentManagementSystem.Data.csproj" />
     <ProjectReference Include="..\StudentManagementSystem.Lib\StudentManagementSystem.Lib.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Shared\Components\CourseCount\" />
   </ItemGroup>
 
 </Project>

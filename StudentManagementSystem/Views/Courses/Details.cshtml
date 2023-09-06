@@ -26,10 +26,12 @@
                 @foreach (var enrollment in Model.Enrollments)
                 {
                     <tr>
-                        <td>@(enrollment.Student == null 
+                        <partial name="_CourseEnrollmentPartial" model="enrollment" />
+
+                        @* <td>@(enrollment.Student == null 
                             ? "No student enrolled!" : $"{enrollment.Student.FirstName} {enrollment.Student.LastName}")
                         </td>
-                        <td>@enrollment.Grade</td>
+                        <td>@enrollment.Grade</td> *@
                     </tr>
                 }
             </tbody>
