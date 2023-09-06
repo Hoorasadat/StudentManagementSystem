@@ -1,0 +1,21 @@
+﻿@model IList<CourseEnrollmentCount>
+
+<table class="table table-responsive table-bordered table-striped">
+    <thead class="bg-secondary text-white">
+        <tr>
+            <th>Course</th>
+            <th>Number of Students</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var courseCount in Model)
+        {
+            <tr>
+                <td>@courseCount.CourseTitle</td>
+                <td>@courseCount.NumberOfStudents</td>
+            </tr>
+        }
+    </tbody>
+
+</table>
