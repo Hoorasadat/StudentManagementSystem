@@ -1,0 +1,40 @@
+﻿@model IList<Enrollment>
+
+@{
+    ViewData["Title"] = "Enrollment List";
+}
+
+<table class="table table-borderless table-responsive table-striped">
+    <thead>
+        <tr>
+            <th>Course</th>
+            <th>Student</th>
+            <th>Grade</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach(var enrollment in Model)
+        {
+            <tr>
+                <td>@enrollment.Course.Title</td>
+                <td>@($"{ enrollment.Student.FirstName } { enrollment.Student.FirstName }")</td>
+                <td>@(!enrollment.Grade.HasValue ? "No Grade" : enrollment.Grade)</td>
+                @if (!enrollment.Grade.HasValue)
+                {
+                    <td>
+                        <a asp-controller="Enrollments" asp-action="AddGrade" asp-route-id="@enrollment.ID" class="btn btn-primary">Add Grade</a>
+                    </td>
+
+                }
+                else
+                {
+                    <td>
+                        <button type="button" class="btn btn-primary" disabled>Add Grade</button>
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>

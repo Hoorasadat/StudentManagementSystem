@@ -212,6 +212,11 @@ namespace StudentManagementSystem.WEB.Controllers
         {
             try
             {
+                if(student.ImageFile != null)
+                {
+                    string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", student.ImageFile);
+                    System.IO.File.Delete(filePath);
+                }
                 await _studentRepository.DeleteStudent(id);
                 return RedirectToAction("Index", "Students");
             }

@@ -1,3 +1,4 @@
+using EnrollmentManagementSystem.BLL.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using StudentManagementSystem.BLL.Interfaces;
 using StudentManagementSystem.BLL.Repositories;
@@ -15,8 +16,8 @@ builder.Services.AddDbContextPool<ApplicationDbContext>(options => options.UseSq
 
 
 builder.Services.AddScoped<IStudentRepository, SQLStudentRepository>();
-builder.Services.AddScoped<IStudentRepository, SQLStudentRepository>();
-builder.Services.AddScoped<IStudentRepository, SQLStudentRepository>();
+builder.Services.AddScoped<IEnrollmentRepository, SQLEnrollmentRepository>();
+builder.Services.AddScoped<ICourseRepository, SQLCourseRepository>();
 
 var app = builder.Build();
 

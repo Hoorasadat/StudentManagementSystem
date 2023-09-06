@@ -1,0 +1,47 @@
+﻿@model AddGradeViewModel
+
+@{
+    ViewData["Title"] = "Add Grade";
+}
+
+<form method="post" asp-controller="Enrollments" asp-action="AddGrade">
+
+    <input asp-for="Id" hidden />
+    <input asp-for="CourseId" hidden />
+    <input asp-for="StudentId" hidden />
+
+    <div class="row mb-3 mt-3">
+        <label asp-for="CourseTitle" class="col-form-label col-md-2"></label>
+        <div class="col-md-6">
+            <input asp-for="CourseTitle" class="form-control" readonly/>
+        </div>
+    </div>
+
+    <div class="row">
+        <label asp-for="StudentName" class="col-form-label col-md-2"></label>
+        <div class="col-md-6">
+            <input asp-for="StudentName" class="form-control" readonly />
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label asp-for="Grade" class="col-form-label col-md-2"></label>
+        <div class="col-md-6">
+            <select asp-for="Grade" class="form-control form-select" asp-items="@Html.GetEnumSelectList<Grade>()">
+                <option value="">Select Grade</option>
+            </select>
+            <span asp-validation-for="Grade" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row">
+        <button type="submit" class="btn btn-primary col-md-1 me-1">Add Grade</button>
+        <a asp-controller="Enrollments" asp-action="Index" class="btn btn-secondary col-md-1">Cancel</a>
+    </div>
+</form>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

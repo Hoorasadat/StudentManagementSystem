@@ -1,0 +1,45 @@
+﻿@model CreateEnrollmentViewModel
+
+@{
+    ViewData["Title"] = "Create Enrollment";
+}
+
+<h3 class="text-center fw-bold">Create a new Enrollment</h3>
+
+<form method="post" asp-controller="Enrollments" asp-action="Create">
+
+    <div class="row mb-3 mt-3">
+        <label asp-for="CourseID" class="col-form-label col-md-2"></label>
+        <div class="col-md-6">
+            <select asp-for="CourseID" class="form-control" asp-items="@ViewBag.Courses">
+                <option value="">Select the Course</option>
+            </select>
+            <span asp-validation-for="CourseID" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row mb-3 mt-3">
+        <label asp-for="StudentID" class="col-form-label col-md-2"></label>
+        <div class="col-md-6">
+            <select asp-for="StudentID" class="form-control" asp-items="@ViewBag.Students">
+                <option value="">Select the Student</option>
+            </select>
+            <span asp-validation-for="StudentID" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row mb-3 mt-3">
+        <label asp-for="Grade" class="col-form-label col-md-2"></label>
+        <div class="col-md-6">
+            <select asp-for="Grade" class="form-control" asp-items="@Html.GetEnumSelectList<Grade>()">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <button type="submit" class="btn btn-primary col-md-1 me-1">Create</button>
+        <a asp-controller="Enrollments" asp-action="Index" class="btn btn-secondary col-md-1">Cancel</a>
+    </div>
+
+</form>
