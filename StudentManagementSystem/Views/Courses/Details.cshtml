@@ -1,0 +1,41 @@
+﻿@model Course
+
+@{
+    ViewData["Title"] = "Course Details";
+}
+
+<div class="card">
+    <div class="card-header bg-primary">
+        <h3 class="text-center text-white">@($"Title: {Model.Title}")</h3>
+    </div>
+    <div class="card-body">
+        <h5 class="mb-2">Instructor: @Model.Instructor</h5>
+        <hr />
+        <h5 class="mb-2">Credits: @Model.Credits</h5>
+        <p class="text-primary text-center fw-bold lead">Enrollments</p>
+
+        <table class="table table-responsive table-bordered table-striped">
+            <thead class="bg-primary">
+                <tr>
+                    <th class="text-white">Student</th>
+                    <th class="text-white">Grade</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var enrollment in Model.Enrollments)
+                {
+                    <tr>
+                        <td>@(enrollment.Student == null 
+                            ? "No student enrolled!" : $"{enrollment.Student.FirstName} {enrollment.Student.LastName}")
+                        </td>
+                        <td>@enrollment.Grade</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer text-center">
+        <a asp-controller="Courses" asp-action="Index" class="btn btn-secondary col-md-2">Cancel</a>
+    </div>
+</div>

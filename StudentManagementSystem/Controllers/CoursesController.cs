@@ -21,9 +21,12 @@ namespace StudentManagementSystem.WEB.Controllers
         }
 
         // GET: CoursesController/Details/5
-        public ActionResult Details(int id)
+        [HttpGet]
+        public async Task<ActionResult> Details(int id)
         {
-            return View();
+            Course course = await _courseRepository.GetCourse(id);
+
+            return View(course);
         }
 
         // GET: CoursesController/Create
