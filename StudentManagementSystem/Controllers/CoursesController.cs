@@ -1,17 +1,24 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using InstructorManagementSystem.BLL.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using StudentManagementSystem.BLL.Interfaces;
+using StudentManagementSystem.Lib.Models;
 
 namespace StudentManagementSystem.WEB.Controllers
 {
     public class CoursesController : Controller
     {
         private readonly ICourseRepository _courseRepository;
+        private readonly IInstructorRepository _instructorRepository;
 
-        public CoursesController(ICourseRepository courseRepository)
+        public CoursesController(ICourseRepository courseRepository, IInstructorRepository instructorRepository)
         {
             _courseRepository = courseRepository;
+            _instructorRepository = instructorRepository;
         }
+
+
 
         // GET: CoursesController
         public async Task<ActionResult> Index()
@@ -30,8 +37,14 @@ namespace StudentManagementSystem.WEB.Controllers
         }
 
         // GET: CoursesController/Create
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
+            IList<Instructor> instructors = await _instructorRepository.GetAllInstructors();
+
+            ViewData["Instructors"] = instructors.Select(i =>
+                new SelectListItem { Text = $"{i.FirstName} {i.LastName}", Value = $"{i.FirstName} {i.LastName}" });
+
+            
             return View();
         }
 

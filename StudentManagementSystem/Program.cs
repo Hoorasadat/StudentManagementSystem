@@ -1,4 +1,5 @@
 using EnrollmentManagementSystem.BLL.Interfaces;
+using InstructorManagementSystem.BLL.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using StudentManagementSystem.BLL.Interfaces;
 using StudentManagementSystem.BLL.Repositories;
@@ -18,6 +19,8 @@ builder.Services.AddDbContextPool<ApplicationDbContext>(options => options.UseSq
 builder.Services.AddScoped<IStudentRepository, SQLStudentRepository>();
 builder.Services.AddScoped<IEnrollmentRepository, SQLEnrollmentRepository>();
 builder.Services.AddScoped<ICourseRepository, SQLCourseRepository>();
+
+builder.Services.AddHttpClient<IInstructorRepository, InstructorRepository>(client => client.BaseAddress = new Uri("https://localhost:7162/api/Instructors"));
 
 var app = builder.Build();
 

@@ -131,7 +131,7 @@ namespace StudentManagementSystem.API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [Route("delete/{id}")]
+        [Route("deleteinstructor/{id}")]
         public async Task<ActionResult<Instructor>> DeleteInstructor(int id)
         {
             try
