@@ -126,9 +126,31 @@ namespace StudentManagementSystem.API.Controllers
 
 
         // DELETE api/<InstructorsController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete]
+        [Route("delete/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<Instructor>> DeleteInstructor(int id)
         {
+            try
+            {
+                Instructor instructor = await _instructorService.GetInstructor(id);
+
+                if (instructor == null)
+                {
+                    return NotFound($"Instructor with ID = {id} was not found!");
+                }
+
+                Instructor deleteinstructor = await _instructorService.DeleteInstructor(id);
+
+                return Ok(deleteinstructor);
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error updating data in the database!");
+            }
         }
     }
 }
