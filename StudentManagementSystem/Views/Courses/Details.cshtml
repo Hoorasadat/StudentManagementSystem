@@ -4,10 +4,12 @@
     ViewData["Title"] = "Course Details";
 }
 
-<div>
+@* <div>
     @await Component.InvokeAsync("CourseCount", new { title = Model.Title })
 
-</div>
+</div> *@
+
+<vc:course-count title="@Model.Title"></vc:course-count>
 
 <div class="card">
     <div class="card-header bg-primary">

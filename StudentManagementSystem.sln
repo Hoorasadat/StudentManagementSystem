@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentManagementSystem.Dat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentManagementSystem.BLL", "StudentManagementSystem.BLL\StudentManagementSystem.BLL.csproj", "{3EBE2F73-9449-4258-89A3-A067B665EDBF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentManagementSystem.API", "StudentManagementSystem.API\StudentManagementSystem.API.csproj", "{213BF131-0A60-4899-92AB-AF280147B8C6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{3EBE2F73-9449-4258-89A3-A067B665EDBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3EBE2F73-9449-4258-89A3-A067B665EDBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3EBE2F73-9449-4258-89A3-A067B665EDBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{213BF131-0A60-4899-92AB-AF280147B8C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{213BF131-0A60-4899-92AB-AF280147B8C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{213BF131-0A60-4899-92AB-AF280147B8C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{213BF131-0A60-4899-92AB-AF280147B8C6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
