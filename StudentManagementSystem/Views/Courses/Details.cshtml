@@ -4,6 +4,11 @@
     ViewData["Title"] = "Course Details";
 }
 
+<div>
+    @await Component.InvokeAsync("CourseCount", new { title = Model.Title })
+
+</div>
+
 <div class="card">
     <div class="card-header bg-primary">
         <h3 class="text-center text-white">@($"Title: {Model.Title}")</h3>

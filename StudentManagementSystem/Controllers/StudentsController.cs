@@ -52,7 +52,7 @@ namespace StudentManagementSystem.WEB.Controllers
 
             //return Json(student);
 
-            //ViewData["PageTitle"] = "Student Detailis";
+            //ViewData["PageTitle"] = "Student Details";
             //ViewData["Student"] = student;
             //return View();
 

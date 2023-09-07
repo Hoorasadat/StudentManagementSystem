@@ -43,13 +43,22 @@ namespace StudentManagementSystem.BLL.Repositories
             return enrollment;
         }
 
-        public async Task<IList<CourseEnrollmentCount>> CourseEnrollmentCount()
+        public async Task<IList<CourseEnrollmentCount>> CourseEnrollmentCount(string title)
         {
-            return await _context.Enrollments.GroupBy(e => e.Course.Title).Select(c => new CourseEnrollmentCount()
+            IQueryable<Enrollment> query = _context.Enrollments;
+
+            if (title != null)
+            {
+                query = query.Where(e => e.Course.Title == title);
+            }
+
+            return await query.GroupBy(e => e.Course.Title).Select(c => new CourseEnrollmentCount()
             {
                 CourseTitle = c.Key,
                 NumberOfStudents = c.Count()
             }).ToListAsync();
+
+
         }
 
         public async Task<IList<Enrollment>> GetAllEnrollments()

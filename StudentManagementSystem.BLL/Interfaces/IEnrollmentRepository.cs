@@ -15,6 +15,6 @@ namespace EnrollmentManagementSystem.BLL.Interfaces
         Task<Enrollment> AddEnrollment(Enrollment newEnrollment);
         Task<Enrollment> UpdateEnrollment(Enrollment updatedEnrollment);
         Task<Enrollment> DeleteEnrollment(int id);
-        Task<IList<CourseEnrollmentCount>> CourseEnrollmentCount();
+        Task<IList<CourseEnrollmentCount>> CourseEnrollmentCount(string title);
     }
 }

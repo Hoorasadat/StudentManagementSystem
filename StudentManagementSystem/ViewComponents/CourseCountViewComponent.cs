@@ -12,12 +12,11 @@ namespace StudentManagementSystem.WEB.ViewComponents
             _enrollmentRepository = enrollmentRepository;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync()
+        public async Task<IViewComponentResult> InvokeAsync(string title = null)
         {
-            var result = await _enrollmentRepository.CourseEnrollmentCount();
+            var result = await _enrollmentRepository.CourseEnrollmentCount(title);
 
             return View(result);
         }
-
     }
 }
