@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using StudentManagementSystem.API.Data;
+using StudentManagementSystem.API.Interfaces;
+using StudentManagementSystem.API.Services;
 
 namespace StudentManagementSystem.API
 {
@@ -18,6 +20,8 @@ namespace StudentManagementSystem.API
 
             builder.Services.AddDbContextPool<InstructorDbContext>(options => 
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            builder.Services.AddScoped<IInstructorService, InstructorService>();
 
             var app = builder.Build();
 
