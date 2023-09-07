@@ -39,7 +39,7 @@ namespace StudentManagementSystem.API.Controllers
 
 
         // GET api/<InstructorsController>/5
-        [HttpGet("{id}")]
+        [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -65,11 +65,11 @@ namespace StudentManagementSystem.API.Controllers
 
 
 
+        // POST api/<InstructorsController>
+        [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        // POST api/<InstructorsController>
-        [HttpPost]
         [Route("createinstructor")]
         public async Task<ActionResult<Instructor>> CreateInstructor([FromBody] Instructor instructor)
         {
@@ -127,11 +127,11 @@ namespace StudentManagementSystem.API.Controllers
 
         // DELETE api/<InstructorsController>/5
         [HttpDelete]
-        [Route("delete/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Route("delete/{id}")]
         public async Task<ActionResult<Instructor>> DeleteInstructor(int id)
         {
             try
