@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace StudentManagementSystem.WEB.ViewComponents
+namespace StudentManagementSystem.WEB.ViewModels
 {
     public class CreateCourseViewModel
     {
@@ -19,7 +19,7 @@ namespace StudentManagementSystem.WEB.ViewComponents
         public int Credits { get; set; }
 
 
-        [Required]
+        [Required(ErrorMessage = "Please select an Instructor!")]
         [MaxLength(100)]
         public string? Instructor { get; set; }
 

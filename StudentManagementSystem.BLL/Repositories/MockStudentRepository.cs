@@ -50,7 +50,7 @@ namespace StudentManagementSystem.BLL.Repositories
 
         public async Task<IList<string>> GetStudentCourses(int id)
         {
-            IList<string> CourseList = new List<string>();
+            IList<string> CourseList;
             
             if (id == 1)
             {

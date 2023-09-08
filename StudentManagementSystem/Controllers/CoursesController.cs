@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using StudentManagementSystem.BLL.Interfaces;
 using StudentManagementSystem.Lib.Models;
+using StudentManagementSystem.WEB.ViewModels;
 
 namespace StudentManagementSystem.WEB.Controllers
 {
@@ -27,6 +28,7 @@ namespace StudentManagementSystem.WEB.Controllers
             return View(courses);
         }
 
+
         // GET: CoursesController/Details/5
         [HttpGet]
         public async Task<ActionResult> Details(int id)
@@ -36,26 +38,47 @@ namespace StudentManagementSystem.WEB.Controllers
             return View(course);
         }
 
+
         // GET: CoursesController/Create
         public async Task<ActionResult> Create()
         {
-            IList<Instructor> instructors = await _instructorRepository.GetAllInstructors();
+            await LoadInstructors();
 
-            ViewData["Instructors"] = instructors.Select(i =>
-                new SelectListItem { Text = $"{i.FirstName} {i.LastName}", Value = $"{i.FirstName} {i.LastName}" });
-
-            
             return View();
         }
 
+        
         // POST: CoursesController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create(CreateCourseViewModel createCourseVM)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                Course existingCourse = await _courseRepository.GetCourse(createCourseVM.Id);
+
+                if(existingCourse != null)
+                {
+                    ModelState.AddModelError(string.Empty, $"Course with Id = {createCourseVM.Id} already exists!");
+                }
+                
+                if (!ModelState.IsValid)
+                {
+                    await LoadInstructors();
+                    return View();
+                }
+
+                Course course = new Course()
+                {
+                    Id = createCourseVM.Id,
+                    Title = createCourseVM.Title,
+                    Credits = createCourseVM.Credits,
+                    Instructor = createCourseVM.Instructor
+                };
+
+                await _courseRepository.AddCourse(course);
+
+                return RedirectToAction("Index", "Courses");
             }
             catch
             {
@@ -63,11 +86,13 @@ namespace StudentManagementSystem.WEB.Controllers
             }
         }
 
+
         // GET: CoursesController/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
+
 
         // POST: CoursesController/Edit/5
         [HttpPost]
@@ -84,11 +109,13 @@ namespace StudentManagementSystem.WEB.Controllers
             }
         }
 
+
         // GET: CoursesController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
+
 
         // POST: CoursesController/Delete/5
         [HttpPost]
@@ -103,6 +130,16 @@ namespace StudentManagementSystem.WEB.Controllers
             {
                 return View();
             }
+        }
+
+
+
+        private async Task LoadInstructors()
+        {
+            IList<Instructor> instructors = await _instructorRepository.GetAllInstructors();
+
+            ViewData["Instructors"] = instructors.Select(i =>
+                new SelectListItem { Text = $"{i.FirstName} {i.LastName}", Value = $"{i.FirstName} {i.LastName}" });
         }
     }
 }

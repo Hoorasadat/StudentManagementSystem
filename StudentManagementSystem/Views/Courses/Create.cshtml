@@ -1,0 +1,56 @@
+﻿@model CreateCourseViewModel
+
+@{
+    ViewData["Title"] = "Create Course";
+}
+
+<h3 class="text-center mt-2 mb-3">Add a New Course</h3>
+
+<form method="post" asp-controller="Courses" asp-action="Create">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="row mb-2">
+        <label asp-for="Id" class="col-form-label col-md-2"></label>
+        <div class="col-md-6">
+            <input asp-for="Id" class="form-control"/>
+            <span asp-validation-for=Id class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row mb-2">
+        <label asp-for="Title" class="col-form-label col-md-2"></label>
+        <div class="col-md-6">
+            <input asp-for="Title" class="form-control" />
+            <span asp-validation-for=Title class="text-danger"></span>
+        </div>
+    </div>
+
+ <div class="row mb-2">
+        <label asp-for="Credits" class="col-form-label col-md-2"></label>
+        <div class="col-md-6">
+            <input asp-for="Credits" class="form-control"/>
+            <span asp-validation-for=Credits class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row mb-2">
+        <label asp-for="Instructor" class="col-form-label col-md-2"></label>
+        <div class="col-md-6">
+            <select asp-for="Instructor" class="form-control form-select" asp-items="@ViewBag.Instructors">
+                <option value="">Select an Instructor</option>
+            </select>
+            <span asp-validation-for=Instructor class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row">
+        <button type="submit" class="btn btn-primary col-md-1 me-1">Add</button>
+        <a asp-controller="Courses" asp-action="Index" class="btn btn-secondary col-md-1">Cancel</a>
+    </div>
+</form>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

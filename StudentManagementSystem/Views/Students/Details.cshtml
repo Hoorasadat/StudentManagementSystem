@@ -104,6 +104,7 @@
                 <a asp-controller="Students" asp-action="Index" class="btn btn-secondary col-md-2">Cancel</a>
                 <a asp-controller="Students" asp-action="Edit" asp-route-id="@Model.Student.Id" class="btn btn-primary col-md-2">Edit</a>
                 @* <span style="display:none"> *@
+                
                 <span id="deleteSpan_@Model.Student.Id" class="collapse">
                     <span class="text-danger">
                         Are you sure you want to delete?
@@ -111,9 +112,10 @@
                     <a href="#" class="btn btn-primary" onclick="confirmDelete('@Model.Student.Id', false)">No</a>
                     <button type="submit" class="btn btn-danger">yes</button>
                 </span>
+
                 <span id="deleteButtonSpan_@Model.Student.Id">
                     <a class="btn btn-danger col-md-2" onclick="confirmDelete('@Model.Student.Id', true)">Delete</a>
-            </span>
+                </span>
             </form>
         </div>
     </div>
