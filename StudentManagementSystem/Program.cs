@@ -22,6 +22,10 @@ builder.Services.AddScoped<ICourseRepository, SQLCourseRepository>();
 
 builder.Services.AddHttpClient<IInstructorRepository, InstructorRepository>(client => client.BaseAddress = new Uri("https://localhost:7162/api/Instructors/"));
 
+
+
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
