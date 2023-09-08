@@ -2,7 +2,45 @@
 
 @{
     ViewData["Title"] = "List of Students";
+    
 }
+
+<form method="get" asp-controller="Students" asp-action="Index">
+    <div class="row mb-3">
+
+        <div class="col-md-4">
+            <label for="firstName" class="col-form-label">First Name</label>
+        </div>
+
+        <div class="col-md-4">
+            <label for="lastName" class="col-form-label">Last Name</label>
+        </div>
+
+        <div class="col-md-4">
+            <label for="gender" class="col-form-label">Gender</label>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+
+        <div class="col-md-4 mb-2">
+            <input id="firstName" name="firstName" class="form-control " />
+        </div>
+
+        <div class="col-md-4 mb-2">
+            <input id="lastName" name="lastName" class="form-control" />
+        </div>
+
+        <div class="col-md-4 mb-2">
+            <input id="gender" name="gender" class="form-control" />
+        </div>
+    </div>
+
+    <div class="row d-flex justify-content-center mb-4">
+        <button type="submit" class="btn btn-primary text-white col-md-3">Search</button>
+    </div>
+
+</form>
 
 <table class="table table-borderless table-striped table-responsive">
     <thead class="bg-primary text-white">
@@ -21,7 +59,7 @@
         @foreach(var student in Model)
         {
             //image for student, ?? Null-coalescing operator. 
-            var photoPath = "/images/" + (student.ImageFile ?? "no_userimage.png");
+            var photoPath = "/images/" + (string.IsNullOrEmpty(student.ImageFile) ? "no_userimage.png" : student.ImageFile);
             <tr>
                 <td>@student.Id</td>
                 <td><img asp-append-version="true" src="@photoPath" height="60" width="60" class="img-thumbnail"/></td>

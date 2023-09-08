@@ -33,9 +33,25 @@ namespace StudentManagementSystem.WEB.Controllers
         //}
 
 
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string? firstName, string? lastName, string? gender)
         {
             IList<Student> students = await _studentRepository.GetAllStudents();
+
+            if(!string.IsNullOrEmpty(firstName))
+            {
+                students = students.Where(s => s.FirstName.ToLower().Contains(firstName.ToLower())).ToList();
+            }
+
+            if (!string.IsNullOrEmpty(lastName))
+            {
+                students = students.Where(s => s.LastName.ToLower().Contains(lastName.ToLower())).ToList();
+            }
+
+            if (!string.IsNullOrEmpty(gender))
+            {
+                students = students.Where(s => s.Gender.ToString().ToLower() == gender.ToLower()).ToList();
+            }
+
             return View(students);
 
             //return View(students);

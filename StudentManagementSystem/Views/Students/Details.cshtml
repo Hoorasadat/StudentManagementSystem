@@ -5,7 +5,7 @@
     ViewData["Title"] = "Student Details";
     // var student = ViewData["Student"];
     // var student = ViewData["Student"] as StudentManagementSystem.Lib.Models.Student;
-    var photoPath = "/images/" + (Model.Student.ImageFile ?? "no_userimage.png");
+    var photoPath = "/images/" + (string.IsNullOrEmpty(Model.Student.ImageFile) ? "no_userimage.png" : Model.Student.ImageFile);
 }
 
 @* <h1>@Model.Title</h1> *@
