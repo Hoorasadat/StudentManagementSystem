@@ -4,6 +4,7 @@
 }
 
 <h3 class="text-center text-primary fw-bold">Create New Student</h3>
+
 <form method="post" asp-controller="Students" asp-action="Create" enctype="multipart/form-data">
     <div asp-validation-summary="All" class="text-danger"></div>
     <div class="row">
@@ -13,6 +14,7 @@
             <span asp-validation-for="FirstName" class="text-danger"></span>
         </div>
     </div>
+
     <div class="row mb-2">
         <label asp-for="Initials" class="col-form-label col-md-2"></label>
         <div class="col-md-6 mb-2 mt-2">
@@ -20,6 +22,7 @@
             <span asp-validation-for="Initials" class="text-danger"></span>
         </div>
     </div>
+
     <div class="row mb-2">
         <label asp-for="LastName" class="col-form-label col-md-2"></label>
         <div class="col-md-6 mb-2 mt-2">
@@ -27,6 +30,7 @@
             <span asp-validation-for="LastName" class="text-danger"></span>
         </div>
     </div>
+
     <div class="row mb-2">
         <label asp-for="EnrollmentDate" class="col-form-label col-md-2"></label>
         <div class="col-md-6 mb-2 mt-2">
@@ -34,6 +38,7 @@
             <span asp-validation-for="EnrollmentDate" class="text-danger"></span>
         </div>
     </div>
+
     <div class="row mb-2">
         <label asp-for="Gender" class="col-form-label col-md-2"></label>
         <div class="col-md-6 mb-2 mt-2">
