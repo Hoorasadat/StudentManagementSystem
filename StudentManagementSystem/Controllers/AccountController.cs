@@ -1,23 +1,90 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using StudentManagementSystem.WEB.ViewModels;
 
 namespace StudentManagementSystem.WEB.Controllers
 {
     public class AccountController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
 
-        public AccountController(UserManager<IdentityUser> userManager)
+        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
         {
             _userManager = userManager;
+            _signInManager = signInManager;
         }
 
+
+
         // GET: AccountController
+        [HttpGet]
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+
+
+        // GET: AccountController
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Login(LoginViewModel loginVM)
+        {
+            var result = await _signInManager.PasswordSignInAsync(loginVM.Email, loginVM.Password, loginVM.RememberMe, false);
+
+            if (result.Succeeded)
+            {
+                return RedirectToAction("Index", "Students");
+            }
+
+            ModelState.AddModelError(string.Empty, "Invalid login attempt!");
+
+            return View();
+        }
+
+
+
+        // GET: AccountController
+        [HttpGet]
         public ActionResult Register()
         {
             return View();
         }
+
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Register(RegisterViewModel registerVM)
+        {
+            if(!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            IdentityUser user = new IdentityUser
+            {
+                Email = registerVM.Email,
+                UserName = registerVM.Email
+            };
+
+            IdentityResult result = await _userManager.CreateAsync(user, registerVM.Password);
+
+            if (result.Succeeded)
+            {
+                return RedirectToAction("Login", "Students");
+            }
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+
+            return View();
+        }
+
 
 
         // GET: AccountController

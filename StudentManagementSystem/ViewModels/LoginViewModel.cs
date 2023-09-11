@@ -2,7 +2,7 @@
 
 namespace StudentManagementSystem.WEB.ViewModels
 {
-    public class RegisterViewModel
+    public class LoginViewModel
     {
         [Required(ErrorMessage = "Email is required!")]
         [MaxLength(100)]
@@ -18,11 +18,7 @@ namespace StudentManagementSystem.WEB.ViewModels
 
 
 
-        [Required(ErrorMessage = "Confirm Password is required!")]
-        [Display(Name = "Confirm Password")]
-        [DataType(DataType.Password)]
-        [MaxLength(100)]
-        [Compare("Password", ErrorMessage ="Password and Confirm Password must mach!")]
-        public string ConfirmPassword { get; set; }
+        [Display(Name = "Remember Me")]
+        public bool RememberMe { get; set; }
     }
 }

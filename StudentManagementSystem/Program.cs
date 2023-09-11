@@ -24,7 +24,11 @@ builder.Services.AddScoped<ICourseRepository, SQLCourseRepository>();
 builder.Services.AddHttpClient<IInstructorRepository, InstructorRepository>(client => client.BaseAddress = new Uri("https://localhost:7162/api/Instructors/"));
 
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+{
+    options.Password.RequiredLength = 10;
+    //options.Password.RequireNonAlphanumeric = true;
+}).AddEntityFrameworkStores<ApplicationDbContext>();
 
 
 var app = builder.Build();
