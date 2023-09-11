@@ -1,5 +1,6 @@
 using EnrollmentManagementSystem.BLL.Interfaces;
 using InstructorManagementSystem.BLL.Interfaces;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using StudentManagementSystem.BLL.Interfaces;
 using StudentManagementSystem.BLL.Repositories;
@@ -23,7 +24,7 @@ builder.Services.AddScoped<ICourseRepository, SQLCourseRepository>();
 builder.Services.AddHttpClient<IInstructorRepository, InstructorRepository>(client => client.BaseAddress = new Uri("https://localhost:7162/api/Instructors/"));
 
 
-
+builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 
 
 var app = builder.Build();
@@ -40,6 +41,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
