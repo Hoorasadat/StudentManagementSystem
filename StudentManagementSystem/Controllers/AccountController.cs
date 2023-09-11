@@ -64,7 +64,6 @@ namespace StudentManagementSystem.WEB.Controllers
 
 
 
-
         [HttpGet]
         [AllowAnonymous]
         public ActionResult Register()
@@ -114,7 +113,25 @@ namespace StudentManagementSystem.WEB.Controllers
         // GET: AccountController
         public ActionResult Index()
         {
-            return View();
+            IList<ApplicationUser> userList = _userManager.Users.ToList();
+
+            IList<UserListViewModel> userListVM = new List<UserListViewModel>();
+
+            foreach (var user in userList)
+            {
+                UserListViewModel userVM = new UserListViewModel()
+                {
+                    Id = user.Id,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Email = user.Email,
+                    UserName = user.UserName
+                };
+
+                userListVM.Add(userVM);
+            }
+
+            return View(userListVM);
         }
 
         // GET: AccountController/Details/5
