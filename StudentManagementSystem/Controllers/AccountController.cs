@@ -27,7 +27,6 @@ namespace StudentManagementSystem.WEB.Controllers
 
 
 
-        // GET: AccountController
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel loginVM)
@@ -46,7 +45,18 @@ namespace StudentManagementSystem.WEB.Controllers
 
 
 
-        // GET: AccountController
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+
+            return RedirectToAction("Index", "Students");
+        }
+
+
+
+
         [HttpGet]
         public ActionResult Register()
         {
@@ -84,6 +94,8 @@ namespace StudentManagementSystem.WEB.Controllers
 
             return View();
         }
+
+
 
 
 
