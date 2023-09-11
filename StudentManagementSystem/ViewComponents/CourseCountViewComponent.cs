@@ -14,7 +14,7 @@ namespace StudentManagementSystem.WEB.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync(string title = null)
         {
-            var result = await _enrollmentRepository.CourseEnrollmentCount(title);
+            var result = await _enrollmentRepository.CourseEnrollmentCounts(title);
 
             return View(result);
         }

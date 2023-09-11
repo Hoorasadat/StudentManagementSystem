@@ -28,6 +28,7 @@ namespace StudentManagementSystem.BLL.Repositories
             return enrollment.Entity;
         }
 
+
         public async Task<Enrollment> DeleteEnrollment(int id)
         {
             Enrollment enrollment = await _context.Enrollments.FirstOrDefaultAsync(x => x.ID == id);
@@ -43,33 +44,18 @@ namespace StudentManagementSystem.BLL.Repositories
             return enrollment;
         }
 
-        public async Task<IList<CourseEnrollmentCount>> CourseEnrollmentCount(string title)
-        {
-            IQueryable<Enrollment> query = _context.Enrollments;
-
-            if (title != null)
-            {
-                query = query.Where(e => e.Course.Title == title);
-            }
-
-            return await query.GroupBy(e => e.Course.Title).Select(c => new CourseEnrollmentCount()
-            {
-                CourseTitle = c.Key,
-                NumberOfStudents = c.Count()
-            }).ToListAsync();
-
-
-        }
 
         public async Task<IList<Enrollment>> GetAllEnrollments()
         {
             return await _context.Enrollments.Include(e => e.Student).Include(e => e.Course).ToListAsync();
         }
 
+
         public async Task<Enrollment> GetEnrollment(int id)
         {
             return await _context.Enrollments.Include(e => e.Student).Include(e => e.Course).FirstOrDefaultAsync(e => e.ID == id);
         }
+
 
         public async Task<Enrollment> UpdateEnrollment(Enrollment updatedEnrollment)
         {
@@ -88,6 +74,24 @@ namespace StudentManagementSystem.BLL.Repositories
             await _context.SaveChangesAsync();
 
             return enrollment;
+        }
+
+
+
+        public async Task<IList<CourseEnrollmentCount>> CourseEnrollmentCounts(string title)
+        {
+            IQueryable<Enrollment> query = _context.Enrollments;
+
+            if (title != null)
+            {
+                query = query.Where(e => e.Course.Title == title);
+            }
+
+            return await query.GroupBy(e => e.Course.Title).Select(c => new CourseEnrollmentCount()
+            {
+                CourseTitle = c.Key,
+                NumberOfStudents = c.Count()
+            }).ToListAsync();
         }
     }
 }

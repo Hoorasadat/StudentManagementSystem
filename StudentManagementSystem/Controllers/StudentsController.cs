@@ -58,6 +58,7 @@ namespace StudentManagementSystem.WEB.Controllers
         }
 
 
+
         // GET: StudentsController/Details/5
         public async Task<ActionResult> Details(int id)
         {
@@ -86,6 +87,7 @@ namespace StudentManagementSystem.WEB.Controllers
         }
 
 
+
         [Route("getstudent/courses/{id}")]
         //[Route("getstudent/{id}/courses/")]
         public async Task<ViewResult> GetStudentCourses(int id)
@@ -95,12 +97,14 @@ namespace StudentManagementSystem.WEB.Controllers
         }
 
 
+
         // GET: StudentsController/Create
         [HttpGet]
         public ActionResult Create()
         {
             return View();
         }
+
 
 
         // POST: StudentsController/Create
@@ -142,6 +146,7 @@ namespace StudentManagementSystem.WEB.Controllers
         }
 
 
+
         // GET: StudentsController/Edit/5
         [HttpGet]
         public async Task<ActionResult> Edit(int id)
@@ -161,6 +166,7 @@ namespace StudentManagementSystem.WEB.Controllers
             };
             return View(studentVM);
         }
+
 
 
         // POST: StudentsController/Edit/5
@@ -214,11 +220,13 @@ namespace StudentManagementSystem.WEB.Controllers
         }
 
 
+
         // GET: StudentsController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
+
 
 
         // POST: StudentsController/Delete/5
@@ -241,6 +249,7 @@ namespace StudentManagementSystem.WEB.Controllers
                 return View();
             }
         }
+
 
 
         private string ProcessUploadedFile(CreateStudentViewModel studentVM)

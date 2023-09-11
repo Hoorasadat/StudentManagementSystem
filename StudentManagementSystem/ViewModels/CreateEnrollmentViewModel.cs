@@ -12,6 +12,8 @@ namespace StudentManagementSystem.WEB.ViewModels
         [Required(ErrorMessage = "Please select a student!")]
         [Display(Name = "Student")]
         public int? StudentID { get; set; }
+
+
         public Grade? Grade { get; set; }
         public Student? Student { get; set; }
         public Course? Course { get; set; }
