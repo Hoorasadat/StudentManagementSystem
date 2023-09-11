@@ -12,6 +12,22 @@
         <div asp-validation-summary="All" class="text-danger"></div>
 
         <div class="row mb-2">
+            <label asp-for="FirstName" class="col-form-label col-md-2"></label>
+            <div class="col-md-6">
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for=FirstName class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row mb-2">
+            <label asp-for="LastName" class="col-form-label col-md-2"></label>
+            <div class="col-md-6">
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for=LastName class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row mb-2">
             <label asp-for="Email" class="col-form-label col-md-2"></label>
             <div class="col-md-6">
                 <input asp-for="Email" class="form-control" />

@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using StudentManagementSystem.BLL.Interfaces;
 using StudentManagementSystem.BLL.Repositories;
 using StudentManagementSystem.Data.Data;
+using StudentManagementSystem.Lib.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,12 +25,14 @@ builder.Services.AddScoped<ICourseRepository, SQLCourseRepository>();
 builder.Services.AddHttpClient<IInstructorRepository, InstructorRepository>(client => client.BaseAddress = new Uri("https://localhost:7162/api/Instructors/"));
 
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
     options.Password.RequiredLength = 10;
     //options.Password.RequireNonAlphanumeric = true;
 }).AddEntityFrameworkStores<ApplicationDbContext>();
 
+
+//builder.Services.AddSingleton<HttpContextAccessor>();
 
 var app = builder.Build();
 

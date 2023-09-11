@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StudentManagementSystem.BLL.Interfaces;
 using StudentManagementSystem.BLL.Repositories;
@@ -9,6 +10,8 @@ using StudentManagementSystem.WEB.ViewModels;
 
 namespace StudentManagementSystem.WEB.Controllers
 {
+    // apply to all methods
+    //[Authorize]
     public class StudentsController : Controller
     {
         private readonly IStudentRepository _studentRepository;
@@ -149,6 +152,7 @@ namespace StudentManagementSystem.WEB.Controllers
 
         // GET: StudentsController/Edit/5
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult> Edit(int id)
         {
             Student student = await _studentRepository.GetStudent(id);
@@ -171,6 +175,7 @@ namespace StudentManagementSystem.WEB.Controllers
 
         // POST: StudentsController/Edit/5
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(EditStudentViewModel studentVM)
         {

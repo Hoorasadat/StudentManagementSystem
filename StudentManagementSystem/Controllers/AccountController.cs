@@ -1,16 +1,18 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using StudentManagementSystem.Lib.Models;
 using StudentManagementSystem.WEB.ViewModels;
 
 namespace StudentManagementSystem.WEB.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -20,6 +22,7 @@ namespace StudentManagementSystem.WEB.Controllers
 
         // GET: AccountController
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult Login()
         {
             return View();
@@ -28,14 +31,18 @@ namespace StudentManagementSystem.WEB.Controllers
 
 
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel loginVM)
+        public async Task<ActionResult> Login(LoginViewModel loginVM, string returnUrl)
         {
             var result = await _signInManager.PasswordSignInAsync(loginVM.Email, loginVM.Password, loginVM.RememberMe, false);
 
             if (result.Succeeded)
             {
-                return RedirectToAction("Index", "Students");
+                if (string.IsNullOrEmpty(returnUrl))
+                    return RedirectToAction("Index", "Students");
+                else
+                    return LocalRedirect(returnUrl);
             }
 
             ModelState.AddModelError(string.Empty, "Invalid login attempt!");
@@ -46,6 +53,7 @@ namespace StudentManagementSystem.WEB.Controllers
 
 
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Logout()
         {
@@ -58,6 +66,7 @@ namespace StudentManagementSystem.WEB.Controllers
 
 
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult Register()
         {
             return View();
@@ -66,6 +75,7 @@ namespace StudentManagementSystem.WEB.Controllers
 
 
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel registerVM)
         {
@@ -74,10 +84,12 @@ namespace StudentManagementSystem.WEB.Controllers
                 return View();
             }
 
-            IdentityUser user = new IdentityUser
+            ApplicationUser user = new ApplicationUser
             {
                 Email = registerVM.Email,
-                UserName = registerVM.Email
+                UserName = registerVM.Email,
+                FirstName = registerVM.FirstName,
+                LastName = registerVM.LastName,
             };
 
             IdentityResult result = await _userManager.CreateAsync(user, registerVM.Password);
