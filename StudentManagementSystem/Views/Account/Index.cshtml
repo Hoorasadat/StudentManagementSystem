@@ -38,9 +38,10 @@
                         <td>@user.FirstName</td>
                         <td>@user.LastName</td>
                         <td>@user.Email</td>
+                        <td>@user.UserName</td>
                         <td>
-                            <button href="#" class="btn btn-primary">Edit</button>
-                            <button href="#" class="btn btn-danger">Delete</button>
+                            <a asp-controller="Account" asp-action="Edit" asp-route-id="@user.Id" class="btn btn-primary">Edit</a>
+                            <a href="#" class="btn btn-danger">Delete</a>
                         </td>
                     </tr>
                 }

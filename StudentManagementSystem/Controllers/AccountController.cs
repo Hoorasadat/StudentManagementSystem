@@ -161,11 +161,36 @@ namespace StudentManagementSystem.WEB.Controllers
             }
         }
 
+
+
+
         // GET: AccountController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(string id)
         {
-            return View();
+            ApplicationUser existingUser = await _userManager.FindByIdAsync(id);
+
+            if (existingUser == null)
+            {
+                ViewData["NotFound"] = $"The user with id = {id} was not found!";
+                return View("NotFound");
+            }
+
+            IList<string> userRoles = await _userManager.GetRolesAsync(existingUser);
+
+            EditUserViewModel editUserVM = new EditUserViewModel()
+            {
+                Id = existingUser.Id,
+                FirstName = existingUser.FirstName,
+                LastName = existingUser.LastName,
+                Email = existingUser.Email,
+                Username = existingUser.UserName,
+                Roles = userRoles
+            };
+
+            return View(editUserVM);
         }
+
+
 
         // POST: AccountController/Edit/5
         [HttpPost]

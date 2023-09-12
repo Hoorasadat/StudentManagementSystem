@@ -1,0 +1,81 @@
+﻿@model EditUserViewModel
+
+@{
+    ViewData["Title"] = "Edit User";
+}
+
+<h3 class="text-center">Editing User @Model.FirstName @Model.LastName:</h3>
+
+<form method="post" asp-controller="Account" asp-action="Edit">
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="row mt-3 mb-3">
+        <label asp-for="FirstName" class="col-form-label col-md-2"></label>
+        <div class="col-md-6">
+            <input asp-for="FirstName" class="form-control"/>
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row mt-3 mb-3">
+        <label asp-for="LastName" class="col-form-label col-md-2"></label>
+        <div class="col-md-6">
+            <input asp-for="LastName" class="form-control" />
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row mt-3 mb-3">
+        <label asp-for="Email" class="col-form-label col-md-2"></label>
+        <div class="col-md-6">
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row mt-3 mb-3">
+        <label asp-for="Username" class="col-form-label col-md-2"></label>
+        <div class="col-md-6">
+            <input asp-for="Username" class="form-control" />
+            <span asp-validation-for="Username" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row md-3 mb-3 ms-sm-0">
+        <button type="submit" class="btn btn-primary col-md-2 me-2">Update</button>
+        <a asp-controller="Account" asp-action="Index" class="btn btn-secondary col-md-2">Cancl</a>
+    </div>
+
+    <div class="card">
+        <div class="card-header bg-primary text-white text-center">
+            <h3>User Roles</h3>
+        </div>
+
+        <div class="card-body">
+            @if (Model.Roles.Any())
+            {
+                foreach (var role in Model.Roles)
+                {
+                    <h3>@role</h3>
+                }
+            }
+            else
+            {
+                <h5 class="lead">This User does not have any Role!</h5>
+            }
+        </div>
+
+        <div class="card-footer text-center">
+            <a href="#" class="btn btn-primary col-md-6">Add or Remove Roles</a>
+        </div>
+
+    </div>
+</form>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
