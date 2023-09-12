@@ -1,0 +1,40 @@
+﻿@model IList<UserRoleViewModel>
+
+@{
+    ViewData["Title"] = "User's Roles";
+    string userId = ViewData["UserId"].ToString();
+}
+
+
+<form method="post" asp-controller="Account" asp-action="EditUserRoles">
+    <div class="card">
+
+        <div class="card-header">
+            <h3>Add or Remove Roles from User</h3>
+        </div>
+
+        <div class="card-body">
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <input asp-for="@userId" hidden />
+                <input asp-for="@Model[i].RoleName" hidden />
+                <input asp-for="@Model[i].RoleId" hidden />
+                <input asp-for="@Model[i].IsRoleSelected" hidden />
+                
+
+                <div class="form-check form-switch">
+                    <input asp-for="@Model[i].IsRoleSelected" class="form-check-input" />
+                    <label asp-for="@Model[i].IsRoleSelected" class="form-check-label">
+                        @Model[i].RoleName
+                    </label>
+                </div>
+            }
+        </div>
+
+        <div class="card-footer text-center">
+            <button type="submit" class="btn btn-primary col-md-2">Update Role</button>
+            <a asp-controller="Account" asp-action="Edit" asp-route-id="@userId" class="btn btn-secondary col-md-2">Cancel</a>
+        </div>
+    </div>
+
+</form>

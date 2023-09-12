@@ -6,7 +6,7 @@
 
 
 <style>
-    .btn {
+    .btn1 {
         width: 100px;
     }
 </style>
@@ -35,14 +35,29 @@
                 @foreach (var user in Model)
                 {
                     <tr>
-                        <td>@user.FirstName</td>
-                        <td>@user.LastName</td>
-                        <td>@user.Email</td>
-                        <td>@user.UserName</td>
-                        <td>
-                            <a asp-controller="Account" asp-action="Edit" asp-route-id="@user.Id" class="btn btn-primary">Edit</a>
-                            <a href="#" class="btn btn-danger">Delete</a>
-                        </td>
+
+                        <form method="post" asp-controller="Account" asp-action="Delete" asp-route-id="@user.Id">
+
+                            <td>@user.FirstName</td>
+                            <td>@user.LastName</td>
+                            <td>@user.Email</td>
+                            <td>@user.UserName</td>
+                            <td>
+                                <a asp-controller="Account" asp-action="Edit" asp-route-id="@user.Id" class="btn btn1 btn-primary">Edit</a>
+                                <span id="deleteSpan_@user.Id" class="collapse">
+                                    <span class="text-danger fw-bold"> Are you sure you want to delete @user.FirstName @user.LastName?</span>
+                                    <a href="#" class="btn btn-primary me-1" onclick="confirmDelete('@user.Id', flase)">No</a>
+                                    <button type="submit" class="btn btn-danger">Yes</button>
+                                </span>
+
+                                <span id="deleteButtonSpan_@user.Id">
+                                    <a href="#" class="btn btn1 btn-danger" onclick="confirmDelete('@user.Id', true)">Delete</a>
+                                </span>
+                            
+                            </td>
+
+                        </form>
+                        
                     </tr>
                 }
             </tbody>
@@ -53,3 +68,7 @@
 
 </div>
 
+
+@section Scripts {
+    <script src="~/js/customscripts.js"></script>
+}

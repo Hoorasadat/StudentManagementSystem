@@ -4,18 +4,22 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using StudentManagementSystem.Lib.Models;
 using StudentManagementSystem.WEB.ViewModels;
+using System.Collections.Generic;
 
 namespace StudentManagementSystem.WEB.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
         }
 
 
@@ -231,25 +235,131 @@ namespace StudentManagementSystem.WEB.Controllers
         }
 
 
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EditUserRoles(IList<UserRoleViewModel> userRolesList, string userId)
+        {
+            ApplicationUser user = await _userManager.FindByIdAsync(userId);
+
+            if (user == null)
+            {
+                ViewData["NotFound"] = $"The user with id = {userId} was not found!";
+                return View("NotFound");
+            }
+
+            IList<string> userRoles = await _userManager.GetRolesAsync(user);
+            IdentityResult result = await _userManager.RemoveFromRolesAsync(user, userRoles);
+
+            if (!result.Succeeded)
+            {
+                ModelState.AddModelError(string.Empty, "Error removing the user from the existing role!");
+                return View();
+            }
+
+            result = await _userManager.AddToRolesAsync(user, userRolesList.Where(r => r.IsRoleSelected).Select(sr => sr.RoleName));
+
+            if (!result.Succeeded)
+            {
+                ModelState.AddModelError(string.Empty, "Error adding the user to the selected role!");
+                return View();
+            }
+
+            return RedirectToAction("Edit", "Account", new { id = userId });
+        }
+
+
+        public async Task<ActionResult> EditUserRoles(string userId)
+        {
+            ViewData["UserId"] = userId;
+
+            ApplicationUser user = await _userManager.FindByIdAsync(userId);
+
+            if (user == null)
+            {
+                ViewData["NotFound"] = $"The user with id = {userId} was not found!";
+                return View("NotFound");
+            }
+
+            IList<UserRoleViewModel> userRoles = new List<UserRoleViewModel>();
+
+            foreach (var role in _roleManager.Roles)
+            {
+                UserRoleViewModel userRoleVM = new UserRoleViewModel()
+                {
+                    RoleId = role.Id,
+                    RoleName = role.Name
+                };
+
+                if (await _userManager.IsInRoleAsync(user, role.Name))
+                {
+                    userRoleVM.IsRoleSelected = true;
+                }
+                else
+                {
+                    userRoleVM.IsRoleSelected = false;
+                }
+                userRoles.Add(userRoleVM);
+            }
+
+            return View(userRoles);
+        }
+
+
+
+
+
+
         // GET: AccountController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
+
+
         // POST: AccountController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> Delete(string id)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                ApplicationUser user = await _userManager.FindByIdAsync(id);
+
+                if (user == null)
+                {
+                    ViewData["NotFound"] = $"The user with id = {id} was not found!";
+                    return View("NotFound");
+                }
+
+                IdentityResult result = await _userManager.DeleteAsync(user);
+
+                if (!result.Succeeded)
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                    return View();
+                }
+
+                return RedirectToAction("Index", "Account");
             }
             catch
             {
                 return View();
             }
+        }
+
+
+        [HttpGet]
+        [AllowAnonymous]
+
+        public ActionResult AccessDenied()
+        {
+            return View();
         }
     }
 }
