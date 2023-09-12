@@ -9,6 +9,7 @@
 <form method="post" asp-controller="Account" asp-action="Edit">
 
     <div asp-validation-summary="All" class="text-danger"></div>
+    <input asp-for="Id" hidden />
 
     <div class="row mt-3 mb-3">
         <label asp-for="FirstName" class="col-form-label col-md-2"></label>

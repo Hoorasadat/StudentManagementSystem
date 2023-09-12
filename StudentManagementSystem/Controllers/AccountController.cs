@@ -95,7 +95,7 @@ namespace StudentManagementSystem.WEB.Controllers
 
             if (result.Succeeded)
             {
-                return RedirectToAction("Login", "Students");
+                return RedirectToAction("Login", "Account");
             }
 
             foreach (var error in result.Errors)
@@ -195,17 +195,41 @@ namespace StudentManagementSystem.WEB.Controllers
         // POST: AccountController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(EditUserViewModel editUserVM)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
+            if (!ModelState.IsValid)
             {
                 return View();
             }
+
+            ApplicationUser existingUser = await _userManager.FindByIdAsync(editUserVM.Id);
+
+            if (existingUser == null)
+            {
+                ViewData["NotFound"] = $"The user with id = {editUserVM.Id} was not found!";
+                return View("NotFound");
+            }
+
+            existingUser.FirstName = editUserVM.FirstName;
+            existingUser.LastName = editUserVM.LastName;
+            existingUser.Email = editUserVM.Email;
+            existingUser.UserName = editUserVM.Email;
+
+            IdentityResult result = await _userManager.UpdateAsync(existingUser);
+
+            if (result.Succeeded)
+            {
+                return RedirectToAction("Index", "Account");
+            }
+            
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+
+            return View();
         }
+
 
         // GET: AccountController/Delete/5
         public ActionResult Delete(int id)
