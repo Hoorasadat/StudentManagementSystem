@@ -19,7 +19,21 @@ namespace StudentManagementSystem.WEB.Controllers
         // GET: AdministrationController
         public ActionResult Index()
         {
-            return View();
+            IList<IdentityRole> rollList = _roleManager.Roles.ToList();
+            IList<RoleListViewModel> rollListVM = new List<RoleListViewModel>();
+
+            foreach (var role in rollList)
+            {
+                RoleListViewModel roleVM = new RoleListViewModel()
+                {
+                    Id = role.Id,
+                    RoleName = role.Name
+                };
+
+                rollListVM.Add(roleVM);
+            }
+
+            return View(rollListVM);
         }
 
 

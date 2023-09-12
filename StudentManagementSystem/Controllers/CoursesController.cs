@@ -64,7 +64,7 @@ namespace StudentManagementSystem.WEB.Controllers
                 
                 if (!ModelState.IsValid)
                 {
-                    await LoadInstructors();
+                    //await LoadInstructors();
                     return View();
                 }
 
